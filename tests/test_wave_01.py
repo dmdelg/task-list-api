@@ -46,7 +46,8 @@ def test_get_task(client, one_task):
             "id": 1,
             "title": "Go on my daily walk 🏞",
             "description": "Notice something new every day",
-            "is_complete": False
+            "is_complete": False,
+            "goal_id": None 
         }
     }
 
@@ -59,7 +60,6 @@ def test_get_task_not_found(client):
 
     # Assert
     assert response.status_code == 404
-    assert "message" in response_body
     assert response_body == {"message": "Task 1 not found"}
 
 
@@ -127,7 +127,6 @@ def test_update_task_not_found(client):
 
     # Assert
     assert response.status_code == 404
-    assert "message" in response_body
     assert response_body == {"message": "Task 1 not found"}
 
 
