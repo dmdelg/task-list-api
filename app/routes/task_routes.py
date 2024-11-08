@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Blueprint, abort, make_response, request, Response, jsonify
+from flask import Blueprint, abort, make_response, request, Response
 from datetime import datetime, timezone
 from app.models.task import Task
 from ..db import db
@@ -31,7 +31,7 @@ def get_tasks():
         for task in tasks
     ]
 
-    return jsonify(task_list), 200
+    return (task_list), 200
 
 @tasks_bp.get("/<int:task_id>")
 def get_task(task_id):
@@ -124,7 +124,7 @@ def task_complete(task_id):
     slack_url = "https://slack.com/api/chat.postMessage"
     slack_data = {
         "channel": "api-test-channel", 
-        "text": "My Beautiful Task"
+        "text": "Someone just completed the task " + task.title
     }
     slack_header = {
         "Authorization": f"Bearer {slack_token}",
